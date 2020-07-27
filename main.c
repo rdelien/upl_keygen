@@ -145,7 +145,7 @@ int main(int argc, char* argv[])
 
 		fprintf(stdout, "Option keys for UPL with serial number %lu/%.3lu:\n", serialnr[0], serialnr[1]);
 		for (option_ndx = 0; option_ndx < NR_OF_OPTIONS; option_ndx++)
-			fprintf(stdout, "Option %d key: %d (%s - %s)\n", option_ndx, calc_option(option_ndx, serialnr), option[option_ndx].name, option[option_ndx].description);
+			fprintf(stdout, "Option %d key: %.5d (%-3s - %s)\n", option_ndx, calc_option(option_ndx, serialnr), option[option_ndx].name, option[option_ndx].description);
 	}
 
 err_arg:
