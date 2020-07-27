@@ -102,7 +102,9 @@ int main(int argc, char* argv[])
 		goto err_arg;
 	}
 
-	fprintf(stdout, "Option keys for UPL with serial number %lu/%lu:\n", serialnr[0], serialnr[1]);
+	if (serialnr[0] && serialnr[1]) {
+		fprintf(stdout, "Option keys for UPL with serial number %lu/%.3lu:\n", serialnr[0], serialnr[1]);
+	}
 
 err_arg:
 	return result;
