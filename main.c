@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <unistd.h>
 #include <libgen.h>
 
@@ -8,6 +9,7 @@
 /*** Macros                                                                 ***/
 /******************************************************************************/
 #define NR_OF_OPTIONS          10
+#define KEY_SEED               0x5aa5
 
 
 /******************************************************************************/
@@ -66,6 +68,44 @@ err_serialnr:
 }
 
 
+static inline uint16_t roll(uint16_t value, int bits)
+{
+	return (value << bits) |
+	       (value >> (16 - bits));
+}
+
+
+static uint16_t calc_option(unsigned int optionnr, unsigned long *serialnr)
+{
+	unsigned int  count;
+	uint16_t      key = KEY_SEED;
+
+	for (count = 0; count <= optionnr; count++) {
+		uint16_t  key_up;
+
+		key <<= 1;
+		key_up = key << 1;
+		if ((key ^ key_up) & (1 << 14))
+			key += 1;
+	}
+
+	key = roll(key, 2);
+	key ^= serialnr[0];
+
+	key = roll(key, 3);
+	key ^= serialnr[1];
+
+	key = roll(key, 4);
+	key ^= (serialnr[0] >> 16);
+
+	key = roll(key, 5);
+	while (key > 0 && key < 10000)
+		key <<= 1;
+
+	return key;
+}
+
+
 /*****************************************************************************/
 /*** Functions                                                             ***/
 /*****************************************************************************/
@@ -101,7 +141,11 @@ int main(int argc, char* argv[])
 	}
 
 	if (serialnr[0] && serialnr[1]) {
+		unsigned int  option_ndx;
+
 		fprintf(stdout, "Option keys for UPL with serial number %lu/%.3lu:\n", serialnr[0], serialnr[1]);
+		for (option_ndx = 0; option_ndx < NR_OF_OPTIONS; option_ndx++)
+			fprintf(stdout, "Option %d key: %d (%s - %s)\n", option_ndx, calc_option(option_ndx, serialnr), option[option_ndx].name, option[option_ndx].description);
 	}
 
 err_arg:
