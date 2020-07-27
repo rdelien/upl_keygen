@@ -40,11 +40,7 @@ static int get_serialnr(char *optarg, unsigned long *serialnr)
 	/* Retrieve the number before the slash */
 	serialnr[0] = strtoul(optarg, &endptr, 10);
 
-	/* Done if nothing follows */
-	if (*endptr == '\0')
-		return 0;
-
-	/* Bail with an error if anything else than a slash follows */
+	/* Bail with an error if no slash follows */
 	if (*endptr != '/')
 		goto err_serialnr;
 
@@ -64,6 +60,8 @@ static int get_serialnr(char *optarg, unsigned long *serialnr)
 
 err_serialnr:
 	fprintf(stderr, "Invalid serial number '%s'\n", optarg);
+	fprintf(stderr, "UPL serial numbers are formatted like 123456/789\n");
+
 	return -1;
 }
 
