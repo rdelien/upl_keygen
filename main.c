@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <libgen.h>
 
 
 /******************************************************************************/
@@ -77,7 +78,7 @@ int main(int argc, char* argv[])
 	unsigned long  serialnr[2] = { 0, 0 };
 
 	/* Process the command line arguments */
-	while ((arg = getopt(argc, argv, "s:")) != -1) {
+	while ((arg = getopt(argc, argv, "hs:")) != -1) {
 		switch (arg) {
 		case 's':
 			if (get_serialnr(optarg, serialnr))
@@ -87,8 +88,8 @@ int main(int argc, char* argv[])
 		default:
 			result = EXIT_FAILURE;
 		case 'h':
-			fprintf(stderr, "Usage: %s\n", argv[0]);
-			fprintf(stderr, "-s serialnr        Specify serial number\n");
+			fprintf(stderr, "Usage:\n");
+			fprintf(stderr, "%s -s serialnr\n", basename(argv[0]));
 			return result;
 		}
 	}
