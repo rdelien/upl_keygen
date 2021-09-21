@@ -1,6 +1,6 @@
 Description
 ===========
-The vintage Rhode &amp; Schwarz UPL Audio Analyzer features a number of code-activated options:
+The vintage Rhode &amp; Schwarz UPL Audio Analyzer features a number of code-activated software options:
 * B4  - Remote Control
 * B21 - DA Prot
 * B22 - DA Jitt
@@ -40,5 +40,5 @@ Example
 
 Important note
 ==============
-UPL serial numbers are formatted like XXXXXX/YYY. If a serial number on the plaque is formatted like XXXXXX, the YYY part can be found in the type number. If the type number is 1078.2008K16, the value for YYY in that case is 016 (or just 16).
-This has been tested with 6 instruments found on eBay, half of which had an XXXXXX-formatted serial number. So far all generated keys matched with the keys on the license plagues.
+UPL serial numbers are formatted like XXXXXX/YYY. If a serial number on the plaque is formatted like XXXXXX, the YYY part can be found in the type number. For example, if the type number is 1078.2008K16, the value for YYY in that case is 016 (or just 16).
+This has been tested with 6 instruments found on eBay, half of which had an XXXXXX-formatted serial number. So far all generated keys matched with the keys on the license plaques.
